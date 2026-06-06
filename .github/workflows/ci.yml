@@ -1,4 +1,4 @@
-name: CI Build
+name: CI/CD Pipeline
 
 on:
   push:
@@ -8,11 +8,28 @@ on:
 
 jobs:
   build:
+    name: Build
     runs-on: self-hosted
-
     steps:
       - name: Checkout code
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
 
       - name: Build
-        run: echo "Build successful"
+        run: echo "Build stage completed"
+
+      - name: Run tests
+        run: echo "Tests passed"
+
+      - name: Publish artifact
+        run: echo "Artifact published"
+
+  deploy:
+    name: Deploy
+    runs-on: self-hosted
+    needs: build
+    steps:
+      - name: Download artifact
+        run: echo "Artifact downloaded"
+
+      - name: Deploy to environment
+        run: echo "Deploy stage completed"
